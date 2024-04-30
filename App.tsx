@@ -5,12 +5,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import MainNavigator from './src/navigators/MainNavigator';
+import { useFonts } from 'expo-font';
 
 export default function App() {
     const [isShowSplash, setIsShowSplash] = useState(true);
     const [assetToken, setAssetToken] = useState('');
 
     const { getItem, setItem } = useAsyncStorage('assetToken');
+    const [fontLoaded] = useFonts({
+        AirbnbCereal_W_Bd: require('./assets/fonts/AirbnbCereal_W_Bd.otf'),
+        AirbnbCereal_W_Bk: require('./assets/fonts/AirbnbCereal_W_Bk.otf'),
+        AirbnbCereal_W_Blk: require('./assets/fonts/AirbnbCereal_W_Blk.otf'),
+        AirbnbCereal_W_Lt: require('./assets/fonts/AirbnbCereal_W_Lt.otf'),
+        AirbnbCereal_W_Md: require('./assets/fonts/AirbnbCereal_W_Md.otf'),
+        AirbnbCereal_W_XBd: require('./assets/fonts/AirbnbCereal_W_XBd.otf'),
+    });
 
     useEffect(() => {
         const timeout = setTimeout(() => {
