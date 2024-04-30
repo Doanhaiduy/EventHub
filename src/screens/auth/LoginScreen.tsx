@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
     return (
-        <View>
+        <SafeAreaView>
             <Text>LoginScreen</Text>
-        </View>
+            <Button
+                title='Login'
+                onPress={async () => {
+                    await AsyncStorage.setItem('assetToken', 'token');
+                }}
+            />
+        </SafeAreaView>
     );
 }
 
