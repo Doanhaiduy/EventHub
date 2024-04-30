@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { SplashScreen } from './src/screens';
 import AuthNavigator from './src/navigators/AuthNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
 
 export default function App() {
     const [isShowSplash, setIsShowSplash] = useState(true);
@@ -14,11 +15,16 @@ export default function App() {
         };
     }, []);
 
-    return isShowSplash ? (
-        <SplashScreen />
-    ) : (
-        <NavigationContainer>
-            <AuthNavigator />
-        </NavigationContainer>
+    return (
+        <>
+            <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent />
+            {isShowSplash ? (
+                <SplashScreen />
+            ) : (
+                <NavigationContainer>
+                    <AuthNavigator />
+                </NavigationContainer>
+            )}
+        </>
     );
 }
