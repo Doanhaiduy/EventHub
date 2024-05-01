@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { ButtonComponent, SectionComponent, TextComponent } from '../../../components';
+import { ButtonComponent, SectionComponent, SpaceComponent, TextComponent } from '../../../components';
 import { appColors } from '../../../constants/appColors';
 import { fontFamilies } from '../../../constants/fontFamilies';
-import { Ionicons } from '@expo/vector-icons';
+import { Facebook, Google } from '../../../assets/svg';
 
 export default function SocialLogin() {
     return (
@@ -17,13 +17,25 @@ export default function SocialLogin() {
                 font={fontFamilies.medium}
                 size={16}
             />
+            <SpaceComponent height={16} />
             <ButtonComponent
                 text='Google'
-                icon={<Ionicons name='airplane-sharp' size={20} />}
+                icon={<Google />}
                 type='primary'
                 iconFlex='left'
                 textColor={appColors.text}
                 color={appColors.white}
+                textFont={fontFamilies.regular}
+            />
+
+            <ButtonComponent
+                text='Facebook'
+                icon={<Facebook />}
+                type='primary'
+                iconFlex='left'
+                textColor={appColors.text}
+                color={appColors.white}
+                textFont={fontFamilies.regular}
             />
         </SectionComponent>
     );

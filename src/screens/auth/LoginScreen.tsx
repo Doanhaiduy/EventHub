@@ -14,7 +14,7 @@ import { appColors } from '../../constants/appColors';
 import { fontFamilies } from '../../constants/fontFamilies';
 import SocialLogin from './components/SocialLogin';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: any) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isRemember, setIsRemember] = useState(true);
@@ -66,7 +66,11 @@ export default function LoginScreen() {
                         />
                         <TextComponent text='Remember me' />
                     </RowComponent>
-                    <ButtonComponent text='Forgot Password?' onPress={() => {}} type='text' />
+                    <ButtonComponent
+                        text='Forgot Password?'
+                        onPress={() => navigation.navigate('ForgotPassword')}
+                        type='text'
+                    />
                 </RowComponent>
             </SectionComponent>
             <SpaceComponent height={16} />
@@ -77,7 +81,7 @@ export default function LoginScreen() {
             <SectionComponent>
                 <RowComponent justify='center'>
                     <TextComponent text='Don’t have an account? ' />
-                    <ButtonComponent text='Sign up' type='link' onPress={() => {}} />
+                    <ButtonComponent text='Sign up' type='link' onPress={() => navigation.navigate('SignUpScreen')} />
                 </RowComponent>
             </SectionComponent>
         </ContainerComponent>
