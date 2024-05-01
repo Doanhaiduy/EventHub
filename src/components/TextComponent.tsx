@@ -26,6 +26,7 @@ export default function TextComponent(props: Props) {
                     fontSize: size ?? title ? 24 : 14,
                     fontFamily: font ?? title ? fontFamilies.bold : fontFamilies.regular,
                 },
+                styles,
             ]}
         >
             {text}
