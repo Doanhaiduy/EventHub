@@ -1,6 +1,7 @@
+import SocialLogin from './auth/components/SocialLogin';
 import LoginScreen from './auth/LoginScreen';
 import OnboardingScreen from './auth/OnboardingScreen';
 import HomeScreen from './home/HomeScreen';
 import SplashScreen from './SplashScreen';
 
-export { HomeScreen, LoginScreen, SplashScreen, OnboardingScreen };
+export { HomeScreen, LoginScreen, SplashScreen, OnboardingScreen, SocialLogin };

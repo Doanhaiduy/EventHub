@@ -32,11 +32,13 @@ export default function ButtonComponent(prop: Props) {
             {icon && iconFlex !== 'right' && icon}
             <TextComponent
                 text={text}
+                font={fontFamilies.medium}
                 color={textColor ?? appColors.white}
                 styles={[
                     textStyles,
                     {
                         marginLeft: icon ? 12 : 0,
+                        fontSize: 16,
                     },
                 ]}
                 flex={icon && iconFlex === 'right' ? 1 : 0}

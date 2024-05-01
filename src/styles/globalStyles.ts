@@ -21,4 +21,13 @@ export const globalStyles = StyleSheet.create({
         padding: 16,
         minHeight: 56,
     },
+    section: {
+        paddingHorizontal: 16,
+        paddingBottom: 20,
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
 });
