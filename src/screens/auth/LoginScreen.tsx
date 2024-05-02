@@ -13,11 +13,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { appColors } from '../../constants/appColors';
 import { fontFamilies } from '../../constants/fontFamilies';
 import SocialLogin from './components/SocialLogin';
+import authenticationAPI from '../../apis/authApi';
 
 export default function LoginScreen({ navigation }: any) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isRemember, setIsRemember] = useState(true);
+
+    const handleLogin = async () => {
+        try {
+            const res = await authenticationAPI.HandleAuthentication('/hello');
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <ContainerComponent isImageBackground isScroll>
@@ -75,7 +85,7 @@ export default function LoginScreen({ navigation }: any) {
             </SectionComponent>
             <SpaceComponent height={16} />
             <SectionComponent>
-                <ButtonComponent text='SIGN IN' type='primary' />
+                <ButtonComponent onPress={handleLogin} text='SIGN IN' type='primary' />
             </SectionComponent>
             <SocialLogin />
             <SectionComponent>
