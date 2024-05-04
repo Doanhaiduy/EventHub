@@ -28,7 +28,6 @@ export default function ContainerComponent(props: Props) {
                         styles={{
                             paddingHorizontal: 16,
                             paddingVertical: 10,
-                            // backgroundColor: 'red',
                             minWidth: 48,
                             maxHeight: 48,
                         }}

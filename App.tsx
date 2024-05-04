@@ -6,10 +6,12 @@ import { StatusBar } from 'react-native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import MainNavigator from './src/navigators/MainNavigator';
 import { useFonts } from 'expo-font';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
+import AppRouters from './src/navigators/AppRouters';
 
 export default function App() {
     const [isShowSplash, setIsShowSplash] = useState(true);
-    const [assetToken, setAssetToken] = useState('');
 
     const { getItem, setItem } = useAsyncStorage('assetToken');
     const [fontLoaded] = useFonts({
@@ -30,21 +32,18 @@ export default function App() {
         };
     }, []);
 
-    useEffect(() => {
-        checkLogin();
-    }, []);
-    const checkLogin = async () => {
-        const token = await getItem();
-        token && setAssetToken(token);
-    };
     return (
         <>
             <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent />
-            {isShowSplash ? (
-                <SplashScreen />
-            ) : (
-                <NavigationContainer>{assetToken ? <MainNavigator /> : <AuthNavigator />}</NavigationContainer>
-            )}
+            <Provider store={store}>
+                {isShowSplash ? (
+                    <SplashScreen />
+                ) : (
+                    <NavigationContainer>
+                        <AppRouters />
+                    </NavigationContainer>
+                )}
+            </Provider>
         </>
     );
 }

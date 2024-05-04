@@ -1,4 +1,4 @@
-import { KeyboardType, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardType, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { ReactNode, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { appColors } from '../constants/appColors';
@@ -19,8 +19,13 @@ export default function InputComponent(props: Props) {
     const { value, onChange, affix, suffix, placeholder, isPassword, type, allowClear } = props;
 
     const [isShowPassword, setIsShowPassword] = useState(isPassword ?? false);
+    const inputRef = React.createRef<TextInput>();
+
+    const handleFocusInput = () => {
+        inputRef.current?.focus();
+    };
     return (
-        <View style={[styles.inputContainer]}>
+        <Pressable style={[styles.inputContainer]} onPress={handleFocusInput}>
             {affix ?? affix}
             <TextInput
                 style={[styles.input, globalStyles.text]}
@@ -30,6 +35,8 @@ export default function InputComponent(props: Props) {
                 secureTextEntry={isShowPassword}
                 placeholderTextColor='#747688'
                 keyboardType={type ?? 'default'}
+                autoCapitalize='none'
+                ref={inputRef}
             />
             {suffix ?? suffix}
             <TouchableOpacity
@@ -47,7 +54,7 @@ export default function InputComponent(props: Props) {
                     value.length > 0 && allowClear && <Ionicons name='close' size={24} color={appColors.gray} />
                 )}
             </TouchableOpacity>
-        </View>
+        </Pressable>
     );
 }
 
