@@ -28,8 +28,6 @@ export default function AppRouters() {
 
     const checkLogin = async () => {
         const res = await getItem();
-        console.log('test res', res);
-
         res && !Validate.email(res) && dispatch(addAuth(JSON.parse(res)));
     };
 

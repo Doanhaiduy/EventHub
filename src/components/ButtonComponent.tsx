@@ -1,4 +1,13 @@
-import { StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import {
+    ActivityIndicator,
+    StyleProp,
+    StyleSheet,
+    Text,
+    TextStyle,
+    TouchableOpacity,
+    View,
+    ViewStyle,
+} from 'react-native';
 import React, { ReactNode } from 'react';
 import TextComponent from './TextComponent';
 import { globalStyles } from '../styles/globalStyles';
@@ -16,10 +25,11 @@ interface Props {
     onPress?: () => void;
     iconFlex?: 'right' | 'left';
     textFont?: string;
+    isLoading?: boolean;
 }
 
 export default function ButtonComponent(prop: Props) {
-    const { icon, text, type, color, styles, textColor, textStyles, onPress, iconFlex, textFont } = prop;
+    const { icon, text, type, color, styles, textColor, textStyles, onPress, iconFlex, textFont, isLoading } = prop;
     return type === 'primary' ? (
         <View style={{ alignItems: 'center' }}>
             <TouchableOpacity
@@ -35,20 +45,24 @@ export default function ButtonComponent(prop: Props) {
                 onPress={onPress}
             >
                 {icon && iconFlex === 'left' && icon}
-                <TextComponent
-                    text={text}
-                    font={textFont ?? fontFamilies.medium}
-                    color={textColor ?? appColors.white}
-                    styles={[
-                        textStyles,
-                        {
-                            marginLeft: icon ? 12 : 0,
-                            fontSize: 16,
-                            textAlign: 'center',
-                        },
-                    ]}
-                    flex={icon && iconFlex === 'right' ? 1 : 0}
-                />
+                {isLoading ? (
+                    <ActivityIndicator color={appColors.white} size='small' />
+                ) : (
+                    <TextComponent
+                        text={text}
+                        font={textFont ?? fontFamilies.medium}
+                        color={textColor ?? appColors.white}
+                        styles={[
+                            textStyles,
+                            {
+                                marginLeft: icon ? 12 : 0,
+                                fontSize: 16,
+                                textAlign: 'center',
+                            },
+                        ]}
+                        flex={icon && iconFlex === 'right' ? 1 : 0}
+                    />
+                )}
                 {icon && iconFlex === 'right' && icon}
             </TouchableOpacity>
         </View>

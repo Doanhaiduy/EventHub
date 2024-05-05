@@ -1,8 +1,9 @@
 import { KeyboardType, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { appColors } from '../constants/appColors';
 import { globalStyles } from '../styles/globalStyles';
+import TextComponent from './TextComponent';
 
 interface Props {
     value: string;
@@ -13,10 +14,26 @@ interface Props {
     isPassword?: boolean;
     allowClear?: boolean;
     type?: KeyboardType;
+    onEnd?: () => void;
+    onBlur?: () => void;
+    errMessage?: string;
 }
 
 export default function InputComponent(props: Props) {
-    const { value, onChange, affix, suffix, placeholder, isPassword, type, allowClear } = props;
+    const {
+        value,
+        onChange,
+        affix,
+        suffix,
+        placeholder,
+        isPassword,
+        type,
+        allowClear,
+        onEnd,
+        onBlur,
+        errMessage,
+        ...restProps
+    } = props;
 
     const [isShowPassword, setIsShowPassword] = useState(isPassword ?? false);
     const inputRef = React.createRef<TextInput>();
@@ -24,37 +41,56 @@ export default function InputComponent(props: Props) {
     const handleFocusInput = () => {
         inputRef.current?.focus();
     };
+
     return (
-        <Pressable style={[styles.inputContainer]} onPress={handleFocusInput}>
-            {affix ?? affix}
-            <TextInput
-                style={[styles.input, globalStyles.text]}
-                value={value}
-                placeholder={placeholder ?? ''}
-                onChangeText={(val) => onChange(val)}
-                secureTextEntry={isShowPassword}
-                placeholderTextColor='#747688'
-                keyboardType={type ?? 'default'}
-                autoCapitalize='none'
-                ref={inputRef}
-            />
-            {suffix ?? suffix}
-            <TouchableOpacity
-                onPress={() => {
-                    if (isPassword) {
-                        setIsShowPassword(!isShowPassword);
-                    } else {
-                        onChange('');
-                    }
-                }}
+        <View
+            style={{
+                marginBottom: 19,
+            }}
+        >
+            <Pressable
+                style={[
+                    styles.inputContainer,
+                    {
+                        borderColor: errMessage ? appColors.danger : appColors.gray2,
+                    },
+                ]}
+                onPress={handleFocusInput}
             >
-                {isPassword ? (
-                    <Ionicons name={isShowPassword ? 'eye-off' : 'eye'} size={24} color={appColors.gray} />
-                ) : (
-                    value.length > 0 && allowClear && <Ionicons name='close' size={24} color={appColors.gray} />
-                )}
-            </TouchableOpacity>
-        </Pressable>
+                {affix ?? affix}
+                <TextInput
+                    {...restProps}
+                    style={[styles.input, globalStyles.text]}
+                    value={value}
+                    placeholder={placeholder ?? ''}
+                    onChangeText={(val) => onChange(val)}
+                    secureTextEntry={isShowPassword}
+                    placeholderTextColor='#747688'
+                    keyboardType={type ?? 'default'}
+                    autoCapitalize='none'
+                    ref={inputRef}
+                    onEndEditing={onEnd}
+                    onBlur={onBlur}
+                />
+                {suffix ?? suffix}
+                <TouchableOpacity
+                    onPress={() => {
+                        if (isPassword) {
+                            setIsShowPassword(!isShowPassword);
+                        } else {
+                            onChange('');
+                        }
+                    }}
+                >
+                    {isPassword ? (
+                        <Ionicons name={isShowPassword ? 'eye-off' : 'eye'} size={24} color={appColors.gray} />
+                    ) : (
+                        value?.length > 0 && allowClear && <Ionicons name='close' size={24} color={appColors.gray} />
+                    )}
+                </TouchableOpacity>
+            </Pressable>
+            {errMessage && <TextComponent text={`${errMessage}`} size={14} color={appColors.danger} />}
+        </View>
     );
 }
 
@@ -63,14 +99,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: appColors.gray3,
+
         width: '100%',
         paddingHorizontal: 15,
         minHeight: 56,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: appColors.white,
-        marginBottom: 19,
     },
     input: {
         padding: 0,
