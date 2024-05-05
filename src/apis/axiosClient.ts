@@ -24,7 +24,7 @@ axiosClient.interceptors.response.use(
         throw new Error('Something went wrong');
     },
     (error) => {
-        throw error;
+        throw error.response.data.message || error.message;
     }
 );
 
