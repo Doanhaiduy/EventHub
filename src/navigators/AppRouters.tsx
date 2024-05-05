@@ -6,7 +6,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAuth, authSelector } from '../redux/reducers/authReducer';
 import { SplashScreen } from '../screens/';
-import { Validate } from '../utils/validate';
+import { Regex } from '../helpers';
 
 export default function AppRouters() {
     const [isShowSplash, setIsShowSplash] = useState(true);
@@ -28,7 +28,7 @@ export default function AppRouters() {
 
     const checkLogin = async () => {
         const res = await getItem();
-        res && !Validate.email(res) && dispatch(addAuth(JSON.parse(res)));
+        res && Regex.email.test('email') && dispatch(addAuth(JSON.parse(res)));
     };
 
     console.log(auth.accessToken);

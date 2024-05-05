@@ -3,7 +3,7 @@ import ForgotPassword from './auth/ForgotPassword';
 import LoginScreen from './auth/LoginScreen';
 import OnboardingScreen from './auth/OnboardingScreen';
 import SignUpScreen from './auth/SignUpScreen';
-import Verication from './auth/Verication';
+import Verification from './auth/Verification';
 import HomeScreen from './home/HomeScreen';
 import SplashScreen from './SplashScreen';
 
@@ -15,5 +15,5 @@ export {
     SocialLogin,
     SignUpScreen,
     ForgotPassword,
-    Verication,
+    Verification,
 };

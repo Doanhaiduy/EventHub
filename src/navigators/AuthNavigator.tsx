@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ForgotPassword, LoginScreen, OnboardingScreen, SignUpScreen, Verication } from '../screens';
+import { ForgotPassword, LoginScreen, OnboardingScreen, SignUpScreen, Verification } from '../screens';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AuthNavigator() {
@@ -24,7 +24,7 @@ export default function AuthNavigator() {
             {!isExistingUser && <Stack.Screen name='OnboardingScreen' component={OnboardingScreen} />}
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
             <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
-            <Stack.Screen name='Verication' component={Verication} />
+            <Stack.Screen name='Verification' component={Verification} />
             <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
         </Stack.Navigator>
     );

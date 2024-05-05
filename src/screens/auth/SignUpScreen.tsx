@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import {
     ButtonComponent,
     ContainerComponent,
@@ -22,6 +22,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schemasCustom } from '../../utils/zod';
+import { checkHasErr } from '../../helpers';
 
 const schema = z
     .object({
@@ -44,6 +45,12 @@ export default function SignUp({ navigation }: any) {
         formState: { errors, isSubmitting },
         setError,
     } = useForm<FormFields>({
+        defaultValues: {
+            fullName: 'Đoàn Hải Duy',
+            email: 'haiduytbt2k3@gmail.com',
+            password: '12345678a',
+            confirmPassword: '12345678a',
+        },
         resolver: zodResolver(schema),
     });
     const dispatch = useDispatch();
@@ -52,19 +59,16 @@ export default function SignUp({ navigation }: any) {
         const { fullName, email, password } = data;
         try {
             const res = await authenticationAPI.HandleAuthentication(
-                '/register',
+                '/verification',
                 {
-                    fullName,
                     email,
-                    password,
                 },
                 'post'
             );
-            console.log(res.data);
-            dispatch(addAuth(res.data));
-            await AsyncStorage.setItem('auth', JSON.stringify(res.data));
+            console.log(res);
+            navigation.navigate('Verification', { fullName, email, password, code: res.data.code });
         } catch (error) {
-            setError('email', {
+            setError('root', {
                 message: `${error}`,
             });
         }
@@ -165,8 +169,15 @@ export default function SignUp({ navigation }: any) {
                 </SectionComponent>
                 <SpaceComponent height={16} />
                 <SectionComponent>
-                    <ButtonComponent onPress={handleSubmit(onSubmit)} text='SIGN UP' type='primary' />
+                    <ButtonComponent
+                        onPress={handleSubmit(onSubmit)}
+                        disabled={checkHasErr(errors)}
+                        text='SIGN UP'
+                        type='primary'
+                    />
                 </SectionComponent>
+                <SpaceComponent height={6} />
+                {errors.root && <TextComponent text={`${errors.root.message}`} size={14} color={appColors.danger} />}
                 <SocialLogin />
                 <SectionComponent>
                     <RowComponent justify='center'>

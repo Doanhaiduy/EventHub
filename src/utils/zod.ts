@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Regex } from './validate';
+import { Regex } from '../helpers';
 
 type passwordType = 'Login' | 'SignUp';
 
@@ -22,7 +22,7 @@ export const schemasCustom: {
         })
         .trim(),
 
-    email: z.string().email({ message: 'Email is not valid' }),
+    email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Email is not valid' }),
 
     password: (type: passwordType) => {
         if (type === 'Login') {

@@ -23,6 +23,7 @@ import { schemasCustom } from '../../utils/zod';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingModal } from '../../modals';
+import { checkHasErr } from '../../helpers';
 
 const schema = z.object({
     email: schemasCustom.email,
@@ -92,6 +93,7 @@ export default function LoginScreen({ navigation }: any) {
                             value={value}
                             placeholder='Email'
                             onChange={onChange}
+                            onBlur={onBlur}
                             allowClear
                             affix={
                                 <Ionicons
@@ -112,6 +114,7 @@ export default function LoginScreen({ navigation }: any) {
                             value={value}
                             onChange={onChange}
                             onBlur={onBlur}
+                            onEnd={() => console.log(errors)}
                             placeholder='Password'
                             isPassword
                             allowClear
@@ -144,11 +147,16 @@ export default function LoginScreen({ navigation }: any) {
                     />
                 </RowComponent>
                 <SpaceComponent height={6} />
-                {errors.root && <TextComponent text={`${errors.root.message}`} color={appColors.danger} />}
+                {errors.root && <TextComponent text={`${errors.root.message}`} size={14} color={appColors.danger} />}
             </SectionComponent>
             <SpaceComponent height={16} />
             <SectionComponent>
-                <ButtonComponent onPress={handleSubmit(onSubmit)} text='SIGN IN' type='primary' />
+                <ButtonComponent
+                    onPress={handleSubmit(onSubmit)}
+                    text='SIGN IN'
+                    type='primary'
+                    disabled={checkHasErr(errors)}
+                />
             </SectionComponent>
             <SocialLogin />
             <SectionComponent>

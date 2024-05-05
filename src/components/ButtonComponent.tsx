@@ -17,7 +17,7 @@ import { fontFamilies } from '../constants/fontFamilies';
 interface Props {
     icon?: ReactNode;
     text: string;
-    type?: 'primary' | 'text' | 'link';
+    type?: 'primary' | 'text' | 'link' | 'disable';
     color?: string;
     styles?: StyleProp<ViewStyle>;
     textColor?: string;
@@ -26,21 +26,26 @@ interface Props {
     iconFlex?: 'right' | 'left';
     textFont?: string;
     isLoading?: boolean;
+    disabled?: boolean;
 }
 
 export default function ButtonComponent(prop: Props) {
-    const { icon, text, type, color, styles, textColor, textStyles, onPress, iconFlex, textFont, isLoading } = prop;
+    const { icon, text, type, color, styles, textColor, textStyles, onPress, iconFlex, textFont, isLoading, disabled } =
+        prop;
+
     return type === 'primary' ? (
         <View style={{ alignItems: 'center' }}>
             <TouchableOpacity
+                disabled={disabled}
                 style={[
                     globalStyles.button,
                     globalStyles.shadow,
                     {
-                        backgroundColor: color ?? appColors.primary,
+                        backgroundColor: disabled ? appColors.gray4 : color ?? appColors.primary,
                         marginBottom: 17,
                         width: '90%',
                     },
+                    styles,
                 ]}
                 onPress={onPress}
             >
@@ -67,7 +72,7 @@ export default function ButtonComponent(prop: Props) {
             </TouchableOpacity>
         </View>
     ) : (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity disabled={disabled} onPress={onPress}>
             <TextComponent text={text} color={type === 'link' ? appColors.link : appColors.text} />
         </TouchableOpacity>
     );
