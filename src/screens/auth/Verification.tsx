@@ -156,7 +156,6 @@ export default function Verification({ navigation, route }: any) {
                         keyboardType='number-pad'
                         onChangeText={(val) => {
                             handleChangeCode(val, 3);
-                            //  console.log(val);
                         }}
                     />
                 </RowComponent>

@@ -14,6 +14,7 @@ export default function AppRouters() {
     const { getItem } = useAsyncStorage('auth');
 
     const dispatch = useDispatch();
+
     const auth = useSelector(authSelector);
 
     useEffect(() => {
@@ -28,7 +29,11 @@ export default function AppRouters() {
 
     const checkLogin = async () => {
         const res = await getItem();
-        res && Regex.email.test('email') && dispatch(addAuth(JSON.parse(res)));
+        if (res) {
+            if (!Regex.email.test(res)) {
+                dispatch(addAuth(JSON.parse(res || '')));
+            }
+        }
     };
 
     console.log(auth.accessToken);
