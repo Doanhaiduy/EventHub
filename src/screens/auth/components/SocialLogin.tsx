@@ -6,6 +6,9 @@ import { fontFamilies } from '../../../constants/fontFamilies';
 import { Facebook, Google } from '../../../assets/svg';
 
 export default function SocialLogin() {
+    const handleLoginWithGoogle = () => {
+        console.log('Login with Google');
+    };
     return (
         <SectionComponent>
             <TextComponent
@@ -19,6 +22,7 @@ export default function SocialLogin() {
             />
             <SpaceComponent height={16} />
             <ButtonComponent
+                onPress={handleLoginWithGoogle}
                 text='Google'
                 icon={<Google />}
                 type='primary'

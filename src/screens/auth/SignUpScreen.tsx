@@ -62,6 +62,7 @@ export default function SignUp({ navigation }: any) {
                 '/verification',
                 {
                     email,
+                    fullName,
                 },
                 'post'
             );

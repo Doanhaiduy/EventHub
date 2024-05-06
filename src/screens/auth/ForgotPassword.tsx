@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import {
     ButtonComponent,
@@ -12,7 +12,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { appColors } from '../../constants/appColors';
 import authenticationAPI from '../../apis/authApi';
 import { Regex } from '../../helpers';
-import { set } from 'zod';
 import { LoadingModal } from '../../modals';
 
 export default function ForgotPassword() {
