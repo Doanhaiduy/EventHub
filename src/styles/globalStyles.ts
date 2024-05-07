@@ -48,4 +48,9 @@ export const globalStyles = StyleSheet.create({
         height: 30,
         borderRadius: 100,
     },
+    tag: {
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 100,
+    },
 });
