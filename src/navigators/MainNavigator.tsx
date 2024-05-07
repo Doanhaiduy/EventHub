@@ -1,6 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './TabNavigator';
+import DrawerNavigator from './DrawerNavigator';
 
 export default function MainNavigator() {
     const Stack = createNativeStackNavigator();
@@ -10,7 +11,7 @@ export default function MainNavigator() {
                 headerShown: false,
             }}
         >
-            <Stack.Screen name='Main' component={TabNavigator} />
+            <Stack.Screen name='Main' component={DrawerNavigator} />
         </Stack.Navigator>
     );
 }

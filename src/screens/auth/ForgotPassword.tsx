@@ -46,7 +46,7 @@ export default function ForgotPassword() {
                 <TextComponent text='Please enter your email address to request a password reset.' />
                 <SpaceComponent height={26} />
                 <InputComponent
-                    value={email || 'haiduytbt2k3@gmail.com'}
+                    value={email}
                     onChange={(val) => setEmail(val)}
                     onEnd={handleCheckEmail}
                     errMessage={!isError ? undefined : 'Invalid email'}

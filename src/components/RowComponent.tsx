@@ -15,7 +15,7 @@ export default function RowComponent(props: Props) {
     const localStyle = [globalStyles.row, styles, { justifyContent: justify }];
 
     return onPress ? (
-        <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={localStyle}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onPress} style={localStyle}>
             {children}
         </TouchableOpacity>
     ) : (

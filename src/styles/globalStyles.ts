@@ -19,7 +19,7 @@ export const globalStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: appColors.white,
         padding: 16,
-        minHeight: 56,
+        // minHeight: 56,
     },
     shadow: {
         shadowColor: 'rgba(0, 0, 0, 0.5)',
