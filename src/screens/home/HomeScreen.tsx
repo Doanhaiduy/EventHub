@@ -1,4 +1,15 @@
-import { Button, StyleSheet, Text, View, StatusBar, SafeAreaView, TouchableOpacity, Platform } from 'react-native';
+import {
+    Button,
+    StyleSheet,
+    Text,
+    View,
+    StatusBar,
+    SafeAreaView,
+    TouchableOpacity,
+    Platform,
+    ScrollView,
+    FlatList,
+} from 'react-native';
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,17 +19,37 @@ import { appColors } from '../../constants/appColors';
 import {
     CategoriesList,
     CircleComponent,
+    EventItem,
     RowComponent,
+    SectionComponent,
     SpaceComponent,
+    TabBarComponent,
     TagComponent,
     TextComponent,
 } from '../../components';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { fontFamilies } from '../../constants/fontFamilies';
+import { EventModel } from '../../models/EventModel';
 
 export default function HomeScreen({ navigation }: any) {
     const dispatch = useDispatch();
     const auth = useSelector(authSelector);
+
+    const itemEvent: EventModel = {
+        title: 'International Band Music',
+        description: 'Enjoy the music of the world with the best band in the world',
+        location: {
+            title: 'New York',
+            address: '1234 Street, New York, USA',
+        },
+
+        users: ['user1', 'user2', 'user3', 'user4', 'user5'],
+        imageUrl: 'https://picsum.photos/200/300',
+        authorId: 'author1',
+        startAt: Date.now(),
+        endAt: Date.now(),
+        date: Date.now(),
+    };
 
     return (
         <View style={[globalStyles.container]}>
@@ -111,9 +142,25 @@ export default function HomeScreen({ navigation }: any) {
                     <CategoriesList isFill />
                 </View>
             </View>
-            {/* <View style={{ flex: 1, backgroundColor: appColors.white }}>
-                <Text>a</Text>
-            </View> */}
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={{
+                    flex: 1,
+                    marginTop: 16,
+                }}
+            >
+                <SectionComponent styles={{ paddingHorizontal: 0, paddingTop: 20 }}>
+                    <TabBarComponent title='Upcoming Events' onPress={() => {}} />
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        horizontal
+                        data={Array(5).fill(0)}
+                        renderItem={({ item, index }) => (
+                            <EventItem type='card' key={`event${index}`} item={itemEvent} />
+                        )}
+                    />
+                </SectionComponent>
+            </ScrollView>
         </View>
     );
 }

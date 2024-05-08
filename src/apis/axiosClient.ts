@@ -10,9 +10,7 @@ axiosClient.interceptors.request.use(async (config: any) => {
         Accept: 'application/json',
         ...config.headers,
     };
-
     config.data;
-
     return config;
 });
 
