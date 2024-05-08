@@ -9,6 +9,7 @@ import {
     Platform,
     ScrollView,
     FlatList,
+    ImageBackground,
 } from 'react-native';
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,6 +18,7 @@ import { authSelector, removeAuth } from '../../redux/reducers/authReducer';
 import { globalStyles } from '../../styles/globalStyles';
 import { appColors } from '../../constants/appColors';
 import {
+    CardComponent,
     CategoriesList,
     CircleComponent,
     EventItem,
@@ -151,6 +153,41 @@ export default function HomeScreen({ navigation }: any) {
             >
                 <SectionComponent styles={{ paddingHorizontal: 0, paddingTop: 20 }}>
                     <TabBarComponent title='Upcoming Events' onPress={() => {}} />
+                    <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        horizontal
+                        data={Array(5).fill(0)}
+                        renderItem={({ item, index }) => (
+                            <EventItem type='card' key={`event${index}`} item={itemEvent} />
+                        )}
+                    />
+                </SectionComponent>
+                <SectionComponent>
+                    <ImageBackground
+                        source={require('../../assets/images/invite-image.png')}
+                        style={{ flex: 1, padding: 16, minHeight: 127 }}
+                        imageStyle={{
+                            resizeMode: 'cover',
+                            borderRadius: 12,
+                        }}
+                    >
+                        <TextComponent text='Invite your friends' title />
+                        <TextComponent text='Get $20 for ticket' />
+                        <RowComponent>
+                            <TouchableOpacity
+                                style={[
+                                    globalStyles.button,
+                                    { marginTop: 12, backgroundColor: '#00F8FF', paddingHorizontal: 28 },
+                                ]}
+                            >
+                                <TextComponent text='INVITE' color={appColors.white} font={fontFamilies.bold} />
+                            </TouchableOpacity>
+                        </RowComponent>
+                    </ImageBackground>
+                </SectionComponent>
+                <SectionComponent styles={{ paddingHorizontal: 0, paddingTop: 20 }}>
+                    <SpaceComponent height={18} />
+                    <TabBarComponent title='NearBy You' onPress={() => {}} />
                     <FlatList
                         showsHorizontalScrollIndicator={false}
                         horizontal

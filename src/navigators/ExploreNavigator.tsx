@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, SearchEvents } from '../screens';
+import { EventDetail, HomeScreen, SearchEvents } from '../screens';
 
 export default function ExploreNavigator() {
     const Stack = createNativeStackNavigator();
@@ -13,6 +13,7 @@ export default function ExploreNavigator() {
         >
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
             <Stack.Screen name='SearchEvents' component={SearchEvents} />
+            <Stack.Screen name='EventDetail' component={EventDetail} />
         </Stack.Navigator>
     );
 }
